@@ -1,3 +1,4 @@
+import type { MovieGenre } from 'models/genres';
 import type { Movie } from 'models/movies';
 import Image from 'next/image';
 
@@ -10,7 +11,13 @@ import {
   Title,
 } from './SliderMovieCard.styles';
 
-export const SliderMovieCard = ({ movie }: { movie: Movie }) => {
+export const SliderMovieCard = ({
+  movie,
+  genres = [],
+}: {
+  movie: Movie;
+  genres: MovieGenre[];
+}) => {
   return (
     <Container>
       <ImageContainer>
@@ -26,9 +33,14 @@ export const SliderMovieCard = ({ movie }: { movie: Movie }) => {
       <DetailsContainer>
         <Title>{movie.title}</Title>
         <GenreContainer>
-          {movie.genre_ids.map((genre) => (
-            <Genre key={genre.name}>{genre.name}</Genre>
-          ))}
+          {movie.genre_ids.map((genreID) => {
+            const filteredGenres = genres.genres.filter(
+              (genreObj) => genreObj.id === genreID
+            );
+            const genreName =
+              filteredGenres.length > 0 ? filteredGenres[0].name : '';
+            return <Genre key={genreID}>{genreName}</Genre>;
+          })}
         </GenreContainer>
       </DetailsContainer>
     </Container>

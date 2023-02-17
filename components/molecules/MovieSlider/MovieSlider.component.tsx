@@ -1,4 +1,5 @@
 import { SliderMovieCard } from 'components/atoms/SliderMovieCard/SliderMovieCard.component';
+import type { MovieGenre } from 'models/genres';
 import type { Movie } from 'models/movies';
 import { A11y, Keyboard, Mousewheel, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,9 +8,10 @@ import { Container } from './MovieSlider.styles';
 
 interface Props {
   movies: Movie[];
+  genres: MovieGenre;
 }
 
-export const MovieSlider = ({ movies = [] }: Props) => {
+export const MovieSlider = ({ movies = [], genres }: Props) => {
   return (
     <Container>
       <Swiper
@@ -37,8 +39,8 @@ export const MovieSlider = ({ movies = [] }: Props) => {
         }}
       >
         {movies.map((movie) => (
-          <SwiperSlide key={movie.id}>
-            <SliderMovieCard movie={movie} />
+          <SwiperSlide key={`${movie.id}-slider`}>
+            <SliderMovieCard key={movie.id} movie={movie} genres={genres} />
           </SwiperSlide>
         ))}
       </Swiper>

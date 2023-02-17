@@ -15,7 +15,7 @@ const promiseOptions = (inputValue: string) =>
   new Promise<any>((resolve) => {
     setTimeout(() => {
       resolve(filterMovies(inputValue));
-    }, 1000);
+    }, 2000);
   });
 
 export const MovieSearcher = () => {
